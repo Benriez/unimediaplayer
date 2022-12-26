@@ -1,20 +1,7 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="lhh lpR lFf">
 
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
-
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
-          Title
-        </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
-
-    <q-drawer show-if-above="false" v-model="leftDrawerOpen" side="left" bordered>
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered class="primary-bg-color">
       <!-- drawer content -->
     </q-drawer>
 
@@ -41,3 +28,15 @@ export default {
   }
 }
 </script>
+
+<style>
+
+  .q-drawer{
+    width: 200px!important;
+  }
+
+  .q-page-container{
+    padding-left: 200px!important;
+  }
+
+</style>
