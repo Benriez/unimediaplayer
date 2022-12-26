@@ -99,8 +99,8 @@ export default defineComponent({
 
     function addLink () {
       $q.dialog({
-        title: 'Prompt',
-        message: 'What is your name?',
+        title: 'Add new URL',
+        message: 'Paste in youre link',
         prompt: {
           model: '',
           type: 'text' // optional
