@@ -1,12 +1,23 @@
 <template>
-  <q-page class="flex flex-center">
-    <q-list>  
+  <q-page class="flex">
+    <div class="row" style="width:100%">
+      <div class="col-2">
+        Left Panel
+      </div>
+      <div class="col-8" style="background-color:#E1E1E1">
+        
+      </div>
+      <div class="col-2">
+        Right Panel
+      </div>
+    </div>
+    <!-- <q-list>  
         <essential-link
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
         />
-    </q-list>
+    </q-list> -->
   </q-page>
 </template>
 
@@ -62,7 +73,7 @@ const linksData = [
 export default defineComponent({
   name: 'IndexPage',
   components: {
-    EssentialLink
+    //EssentialLink
   },
   data () {
     return {
