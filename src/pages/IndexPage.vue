@@ -5,7 +5,10 @@
         Left Panel
       </div>
       <div class="col-8" style="background-color:#E1E1E1">
-        
+        <q-video
+          :ratio="16/9"
+          src="https://www.youtube.com/embed/TLV4_xaYynY"
+        />
       </div>
       <div class="col-2">
         Right Panel
