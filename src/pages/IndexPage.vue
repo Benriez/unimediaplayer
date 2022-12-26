@@ -15,7 +15,9 @@
           <div class="queue" style="width: 100%; height: 100%;">
             <div style="background-color:white; border-bottom: 1px solid rgb(0 0 0 / 18%);display:flex;display: flex; justify-content: space-between; padding: .5rem">
               <p style="margin-bottom: 0">Queue</p>
-              <q-icon class="self-center q-icon" name="add_circle" />
+              <q-btn label="Add" @click="addLink">
+                <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
+              </q-btn>
             </div>
             <queue-card />
           </div>
@@ -37,6 +39,7 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { useQuasar } from 'quasar'
 import EssentialLink from '../components/EssentialLink.vue'
 import QueueCard from '../components/QueueCard.vue'
 
@@ -91,10 +94,36 @@ export default defineComponent({
     //EssentialLink
     QueueCard
   },
+  setup () {
+    const $q = useQuasar()
+
+    function addLink () {
+      $q.dialog({
+        title: 'Prompt',
+        message: 'What is your name?',
+        prompt: {
+          model: '',
+          type: 'text' // optional
+        },
+        cancel: true,
+        persistent: true
+      }).onOk(data => {
+          console.log('>>>> OK, received', data)
+      }).onCancel(() => {
+          console.log('>>>> Cancel')
+      }).onDismiss(() => {
+          console.log('I am triggered on both OK and Cancel')
+      })
+    }
+
+    return { addLink }
+    
+  },
   data () {
     return {
       essentialLinks: linksData
     }
-  }
+  },
+  
 })
 </script>
