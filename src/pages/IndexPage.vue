@@ -8,10 +8,13 @@
         <div style="height: 100vh">
           <q-video
             :ratio="16/9"
-            src="https://www.youtube.com/embed/TLV4_xaYynY"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
           />
-          <div class="queue" style="background-color:white; width: 100%; height: 100%;">
+          <!-- https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true -->
+          <!-- <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/bendust_official" title="Ben Dust" target="_blank" style="color: #cccccc; text-decoration: none;">Ben Dust</a> · <a href="https://soundcloud.com/bendust_official/bentech-no-one-takes-me-down-ben-dust-remix-preview" title="Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW" target="_blank" style="color: #cccccc; text-decoration: none;">Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW</a></div> -->
+          <div class="queue" style="width: 100%; height: 100%;">
             Queue
+            <queue-card />
           </div>
         </div>
       </div>
@@ -32,6 +35,7 @@
 <script>
 import { defineComponent } from 'vue'
 import EssentialLink from '../components/EssentialLink.vue'
+import QueueCard from '../components/QueueCard.vue'
 
 const linksData = [
   {
@@ -82,6 +86,7 @@ export default defineComponent({
   name: 'IndexPage',
   components: {
     //EssentialLink
+    QueueCard
   },
   data () {
     return {
