@@ -4,11 +4,16 @@
       <div class="col-2">
         Left Panel
       </div>
-      <div class="col-8" style="background-color:#E1E1E1">
-        <q-video
-          :ratio="16/9"
-          src="https://www.youtube.com/embed/TLV4_xaYynY"
-        />
+      <div class="col-8" style="background-color:#E1E1E1; padding: .3rem;">
+        <div style="height: 100vh">
+          <q-video
+            :ratio="16/9"
+            src="https://www.youtube.com/embed/TLV4_xaYynY"
+          />
+          <div class="queue" style="background-color:white; width: 100%; height: 100%;">
+            Queue
+          </div>
+        </div>
       </div>
       <div class="col-2">
         Right Panel
