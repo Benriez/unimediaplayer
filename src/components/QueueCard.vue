@@ -1,5 +1,8 @@
 <template>
-  <li class="row queue-card" @click="playTrack(trackname)">
+  <li 
+    class="row queue-card" 
+    @click="playTrack(title)"
+    >
     <div class="col-2 queue-card-left">
       <div class="column queue-card-preview">
         <q-icon class="self-center q-icon" name="play_arrow" style="color: white;"/>
@@ -8,7 +11,7 @@
 
 
     <div class="col-9 queue-card-center">
-      <p class="queue-card-text">{{ trackname }}</p>
+      <p class="queue-card-text">{{ title }}</p>
       <p class="queue-card-text">{{ album }}</p>
       <p class="queue-card-text">{{ artist }}</p>
     </div>
@@ -26,7 +29,11 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   name: 'QueueCard',
   props: {
-    trackname: {
+    id: {
+      type: Number,
+      default: -1
+    },
+    title: {
       type: String,
       default: ''
     },
@@ -40,8 +47,8 @@ export default defineComponent({
     }
   },
   methods: {
-    playTrack(trackname) {
-      console.log('play: ' + trackname)
+    playTrack(title) {
+      console.log('play: ' + title)
     }
   }
 })

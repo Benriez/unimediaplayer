@@ -5,8 +5,7 @@ export const useUserStore = defineStore('users', {
     authenticated: true,
     name:"",
     email: "", 
-    pass: "",
-    repeat_pass: "",
+    jwt: "",
     online: false,
     leftDrawerOpen: false
   }),
@@ -25,8 +24,7 @@ export const useUserStore = defineStore('users', {
           let userId = firebase_auth.currentUser.uid
           firebase_db.ref('users/' + userId).set({
               name: payload.name,
-              email: payload.email,
-              online: true
+              email: payload.email
           })
       }).catch(error=> {
           console.log('ERROR')

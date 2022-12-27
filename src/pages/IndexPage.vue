@@ -15,19 +15,40 @@
             <!-- <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/bendust_official" title="Ben Dust" target="_blank" style="color: #cccccc; text-decoration: none;">Ben Dust</a> · <a href="https://soundcloud.com/bendust_official/bentech-no-one-takes-me-down-ben-dust-remix-preview" title="Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW" target="_blank" style="color: #cccccc; text-decoration: none;">Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW</a></div> -->
             <div class="queue" style="width: 100%; height: 100%;">
               <div class="queue-wrapper">
-                <p style="margin-bottom: 0">Queue ( / {{queueList.length}})</p>
+                <p style="margin-bottom: 0">Queue ( / {{}})</p>
                 <q-btn label="Add" @click="addLink" class="addBtn">
                   <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
                 </q-btn>
               </div>
               <div style="overflow:scroll; height:100%">
-                <ul style="padding-left: 0; margin-top: 0rem; margin-bottom: 600px;">
-                  <queue-card 
-                    v-for="link in queueList"
-                    :key="link.trackname"
-                    v-bind="link"
-                  />
-                </ul>
+                <!-- <draggable v-model="queueList" style="padding-left: 0; margin-top: 0rem; margin-bottom: 600px;">
+                  <q-list>
+                    <queue-card 
+                      v-for="link in queueList"
+                      :key="link.trackname"
+                      v-bind="link"
+                    />
+                  </q-list>
+                </draggable> -->
+
+                <div  @dragenter.prevent @dragover.prevent>
+                  <ul  
+                   
+                    style="padding-left: 0; margin-top: 0rem; margin-bottom: 600px;"
+                    >
+    
+                    <queue-card 
+                      v-for="item in getList()"
+                      :key="item.id"
+                      v-bind="item"
+                      draggable="true"
+                      @drop="onDrop($event)"
+                      @dragstart="startDrag($event)"
+                      style="padding: 5px"
+                      />
+      
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -51,39 +72,15 @@
 
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 import { useQuasar } from 'quasar'
 import { useUserStore } from '../stores/user-store'
 import QueueCard from '../components/QueueCard.vue'
 import LoginAuth from '../components/Login.vue'
+import draggable from 'vue-draggable'
 import TweenMax from 'gsap'
 
-const trackData = [
-  {
-    trackname: 'The Crusaders - My Lady (Todd Terje Tangoterje Edit)',
-    album: 'album',
-    artist: 'dj tigerstripes',
-    url: 'https://soundcloud.com/dj-tiger-stripes/the-crusaders-my-lady-todd-terje-tangoterje-edit'
-  },
-  {
-    trackname: 'Diamond Veins feat. Sarah Rebecca',
-    album: 'album',
-    artist: 'French79',
-    url: 'https://soundcloud.com/french79music/diamond-veins'
-  },
-  {
-    trackname: 'Inside My Love',
-    album: 'album',
-    artist: 'Buzz Compass',
-    url: 'https://soundcloud.com/buzzcompass/inside-my-love-rework'
-  },
-  {
-    trackname: 'Session #8 Lydia Birthday',
-    album: 'album',
-    artist: 'Psychonaut25',
-    url: 'https://livesets.com/psychonaut25/session/54483'
-  }
-]
+
 
 
 export default defineComponent({
@@ -95,6 +92,67 @@ export default defineComponent({
   setup () {
     const $q = useQuasar()
     const store = useUserStore()
+    var _el;
+    const items = ref([
+      {
+        id: 0,
+        title: 'The Crusaders - My Lady (Todd Terje Tangoterje Edit)',
+        album: 'album',
+        artist: 'dj tigerstripes',
+        url: 'https://soundcloud.com/dj-tiger-stripes/the-crusaders-my-lady-todd-terje-tangoterje-edit'
+      },
+      {
+        id: 1,
+        title: 'Diamond Veins feat. Sarah Rebecca',
+        album: 'album',
+        artist: 'French79',
+        url: 'https://soundcloud.com/french79music/diamond-veins'
+      },
+      {
+        id: 3,
+        title: 'Inside My Love',
+        album: 'album',
+        artist: 'Buzz Compass',
+        url: 'https://soundcloud.com/buzzcompass/inside-my-love-rework'
+      },
+      {
+        id: 4,
+        title: 'Session #8 Lydia Birthday',
+        album: 'album',
+        artist: 'Psychonaut25',
+        url: 'https://livesets.com/psychonaut25/session/54483'
+      }
+    ])
+
+    const getList = (list) => {
+      return items.value.filter((item) => item.list == list)
+    }
+
+    const startDrag = (event) => {
+      event.dataTransfer.dropEffect = "move"
+      event.dataTransfer.effectAllowed = "move"
+      event.dataTransfer.setData("text/plain", null)
+      _el = event.target;
+      console.log('start drag')
+    
+    }
+
+    const onDrop = (event) => {
+      console.log('onDrop')
+
+      const closestLi = event.target.closest('li');
+      console.log(closestLi.parentNode)
+      if (closestLi) {
+        closestLi.parentNode.appendChild(closestLi);
+      }
+
+    }
+
+    function isBefore(el1, el2) {
+      console.log('---->is before?')
+  
+    }
+
 
     function addLink () {
       $q.dialog({
@@ -117,13 +175,16 @@ export default defineComponent({
 
     return { 
       addLink, 
-      store 
+      startDrag,
+      onDrop,
+      getList,
+      store ,
     }
     
   },
   data () {
     return {
-      queueList: trackData
+      // queueList: items
     }
   },
   
