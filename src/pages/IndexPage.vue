@@ -175,19 +175,36 @@ export default defineComponent({
           if (isYouTubeUrl){
             // get video ID from url 
             const videoId = data.match(/v=([^&#]+)/)[1]
-            console.log(videoId)
-            // console.log('yt api key: ' + process.env.YT_API_KEY) 
+            const apiUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.YT_API_KEY}`
             
             
-            const newItem = {
-              id: 5,
-              title: 'The Jimi Hendrix Experience - All Along The Watchtower (Official Audio)',
-              album: 'The Jimi Hendrix Experience',
-              artist: 'Jimi Hendrix',
-              url: yt_embed_link + videoId
-            }
+            fetch(apiUrl)
+              .then(response => response.json())
+              .then(data => {
+                const title = data.items[0].snippet.title
+                const artist = data.items[0].snippet.channelTitle
 
-            items.value.push(newItem)
+                const cleanArtist = artist.replace('VEVO', '')
+                const thumbnailUrl = data.items[0].snippet.thumbnails.high.url
+
+                console.log(thumbnailUrl) 
+                console.log(title)  // 'Rick Astley - Never Gonna Give You Up (Video)'
+                console.log(cleanArtist) // 'RickAstleyVEVO'
+
+                const newItem = {
+                  id: 5,
+                  title: title,
+                  album: 'Albumname',
+                  artist: cleanArtist,
+                  url: yt_embed_link + videoId
+                }
+
+                items.value.push(newItem)
+              })
+              .catch(error => console.error(error))
+
+
+
           
           } else {
             console.log('dude wrong URL')
