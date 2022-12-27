@@ -1,5 +1,5 @@
 <template>
-  <li class="row queue-card">
+  <li class="row queue-card" @click="playTrack(trackname)">
     <div class="col-2 queue-card-left">
       <div class="column queue-card-preview">
         <q-icon class="self-center q-icon" name="play_arrow" style="color: white;"/>
@@ -38,7 +38,12 @@ export default defineComponent({
       type: String,
       default: ''
     }
-  } 
+  },
+  methods: {
+    playTrack(trackname) {
+      console.log('play: ' + trackname)
+    }
+  }
 })
 </script>
 

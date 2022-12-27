@@ -1,49 +1,62 @@
 <template>
-  <q-page class="flex">
-    <div class="row" style="width:100%">
-      <div class="col-2">
-        Left Panel
-      </div>
-      <div class="col-8" style="background-color:#E1E1E1; padding: .3rem;">
-        <div style="height: 100vh">
-          <q-video
-            :ratio="16/9"
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-          />
-          <!-- https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true -->
-          <!-- <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/bendust_official" title="Ben Dust" target="_blank" style="color: #cccccc; text-decoration: none;">Ben Dust</a> · <a href="https://soundcloud.com/bendust_official/bentech-no-one-takes-me-down-ben-dust-remix-preview" title="Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW" target="_blank" style="color: #cccccc; text-decoration: none;">Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW</a></div> -->
-          <div class="queue" style="width: 100%; height: 100%;">
-            <div class="queue-wrapper">
-              <p style="margin-bottom: 0">Queue ( / {{queueList.length}})</p>
-              <q-btn label="Add" @click="addLink" class="addBtn">
-                <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
-              </q-btn>
-            </div>
-            <div style="overflow:scroll; height:100%">
-              <ul style="padding-left: 0; margin-top: 0rem; margin-bottom: 600px;">
-                <queue-card 
-                  v-for="link in queueList"
-                  :key="link.trackname"
-                  v-bind="link"
-                />
-              </ul>
+  <template v-if="store.authenticated">
+    <q-page class="flex">
+      <div class="row" style="width:100%">
+        <div class="col-2">
+          Left Panel
+        </div>
+        <div class="col-8" style="background-color:#E1E1E1; padding: .3rem;">
+          <div style="height: 100vh">
+            <q-video
+              :ratio="16/9"
+              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+            />
+            <!-- https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true -->
+            <!-- <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/bendust_official" title="Ben Dust" target="_blank" style="color: #cccccc; text-decoration: none;">Ben Dust</a> · <a href="https://soundcloud.com/bendust_official/bentech-no-one-takes-me-down-ben-dust-remix-preview" title="Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW" target="_blank" style="color: #cccccc; text-decoration: none;">Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW</a></div> -->
+            <div class="queue" style="width: 100%; height: 100%;">
+              <div class="queue-wrapper">
+                <p style="margin-bottom: 0">Queue ( / {{queueList.length}})</p>
+                <q-btn label="Add" @click="addLink" class="addBtn">
+                  <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
+                </q-btn>
+              </div>
+              <div style="overflow:scroll; height:100%">
+                <ul style="padding-left: 0; margin-top: 0rem; margin-bottom: 600px;">
+                  <queue-card 
+                    v-for="link in queueList"
+                    :key="link.trackname"
+                    v-bind="link"
+                  />
+                </ul>
+              </div>
             </div>
           </div>
         </div>
+        <div class="col-2">
+          Right Panel
+        </div>
       </div>
-      <div class="col-2">
-        Right Panel
-      </div>
-    </div>
-  </q-page>
+    </q-page>
+  </template>
+
+  <template v-else>
+    <!-- <q-page class="flex"> -->
+      <login-auth />
+    <!-- </q-page> -->
+  </template>
+
+
 </template>
+
+
 
 <script>
 import { defineComponent } from 'vue'
 import { useQuasar } from 'quasar'
+import { useUserStore } from '../stores/user-store'
 import QueueCard from '../components/QueueCard.vue'
+import LoginAuth from '../components/Login.vue'
 import TweenMax from 'gsap'
-
 
 const trackData = [
   {
@@ -69,12 +82,6 @@ const trackData = [
     album: 'album',
     artist: 'Psychonaut25',
     url: 'https://livesets.com/psychonaut25/session/54483'
-  },
-  {
-    trackname: 'Session #8 Lydia Birthday',
-    album: 'album',
-    artist: 'Psychonaut25',
-    url: 'https://livesets.com/psychonaut25/session/54483'
   }
 ]
 
@@ -82,10 +89,12 @@ const trackData = [
 export default defineComponent({
   name: 'IndexPage',
   components: {
-    QueueCard
+    QueueCard,
+    LoginAuth
   },
   setup () {
     const $q = useQuasar()
+    const store = useUserStore()
 
     function addLink () {
       $q.dialog({
@@ -106,7 +115,10 @@ export default defineComponent({
       })
     }
 
-    return { addLink }
+    return { 
+      addLink, 
+      store 
+    }
     
   },
   data () {
@@ -130,5 +142,13 @@ export default defineComponent({
     display:flex;display: flex; 
     justify-content: space-between; 
     padding: .5rem
+  }
+
+  .q-drawer {
+    transform: translateX(0px);
+  }
+
+  .q-page-container{
+    padding-left: 200px!important;
   }
 </style>

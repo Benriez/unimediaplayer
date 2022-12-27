@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lhh lpR lFf">
 
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered class="primary-bg-color">
+    <q-drawer show-if-above v-model="store.leftDrawerOpen" side="left" bordered class="primary-bg-color">
       <!-- drawer content -->
     </q-drawer>
 
@@ -13,30 +13,29 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { useUserStore } from '../stores/user-store'
 
 export default {
   setup () {
-    const leftDrawerOpen = ref(false)
+    const store = useUserStore()
 
     return {
-      leftDrawerOpen,
-      toggleLeftDrawer () {
-        leftDrawerOpen.value = !leftDrawerOpen.value
-      }
+      store
     }
   }
 }
 </script>
 
-<style>
 
+
+<style>
   .q-drawer{
     width: 200px!important;
   }
 
-  .q-page-container{
+  /* .q-page-container{
     padding-left: 200px!important;
-  }
+  } */
+
 
 </style>
