@@ -20,22 +20,16 @@
                   <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
                 </q-btn>
               </div>
-              <div style="overflow:scroll; height:100%">
-                <!-- <draggable v-model="queueList" style="padding-left: 0; margin-top: 0rem; margin-bottom: 600px;">
-                  <q-list>
-                    <queue-card 
-                      v-for="link in queueList"
-                      :key="link.trackname"
-                      v-bind="link"
-                    />
-                  </q-list>
-                </draggable> -->
 
-                <div  @dragenter.prevent @dragover.prevent>
+
+              <div style="overflow:scroll; height:100%">
+                <div  
+                  @dragenter.prevent 
+                  @dragover.prevent
+                  >
                   <ul 
                     style="padding-left: 0; margin-top: 0rem; margin-bottom: 600px;"
                     >
-    
                     <queue-card 
                       v-for="item in getList()"
                       :key="item.id"
@@ -45,10 +39,11 @@
                       @dragstart="startDrag($event)"
                       style="padding: 5px"
                       />
-      
                   </ul>
                 </div>
               </div>
+
+
             </div>
           </div>
         </div>
@@ -76,10 +71,7 @@ import { useQuasar } from 'quasar'
 import { useUserStore } from '../stores/user-store'
 import QueueCard from '../components/QueueCard.vue'
 import LoginAuth from '../components/Login.vue'
-import draggable from 'vue-draggable'
 import TweenMax from 'gsap'
-
-
 
 
 export default defineComponent({
@@ -169,11 +161,22 @@ export default defineComponent({
         cancel: true,
         persistent: true
       }).onOk(data => {
-          console.log('>>>> OK, received', data)
+          console.log('>>>> OK, URL received', data)
+          // create new item in items
+          const newItem = {
+            id: 5,
+            title: 'The Jimi Hendrix Experience - All Along The Watchtower (Official Audio)',
+            album: 'The Jimi Hendrix Experience',
+            artist: 'Jimi Hendrix',
+            url: data
+          }
+
+          items.value.push(newItem)
+
       }).onCancel(() => {
           console.log('>>>> Cancel')
       }).onDismiss(() => {
-          console.log('I am triggered on both OK and Cancel')
+          // console.log('I am triggered on both OK and Cancel')
       })
     }
 
