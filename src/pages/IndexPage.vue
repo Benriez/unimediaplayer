@@ -19,7 +19,7 @@
                 <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
               </q-btn>
             </div>
-            <ul style="padding-left: 0">
+            <ul style="padding-left: 0; margin-top: 0rem;">
               <queue-card 
                 v-for="link in queueList"
                 :key="link.trackname"
