@@ -32,8 +32,7 @@
                 </draggable> -->
 
                 <div  @dragenter.prevent @dragover.prevent>
-                  <ul  
-                   
+                  <ul 
                     style="padding-left: 0; margin-top: 0rem; margin-bottom: 600px;"
                     >
     
@@ -133,45 +132,29 @@ export default defineComponent({
       event.dataTransfer.effectAllowed = "move"
       event.dataTransfer.setData("text/plain", null)
       _el = event.target;
-      console.log('start drag')
-    
     }
 
     const onDrop = (event) => {
-      console.log('onDrop')
-      console.log(_el)
       const closestLi = event.target.closest('li');
 
-
-      console.log(closestLi.parentNode)
-
       if (isBefore(_el,closestLi)){
-        console.log('IF')
-        closestLi.parentNode.insertBefore(_el, closestLi);
-      }else{
-        console.log('ELSE')
-        // good for down sorting
-        // closestLi.parentNode.insertBefore(_el, closestLi.nextSibling);
-
         // good for up sorting
         closestLi.parentNode.insertBefore(_el, closestLi);
-
+      }else{
+        // good for down sorting
+        closestLi.parentNode.insertBefore(_el, closestLi.nextSibling);
       }
-
-
-      //closestLi.parentNode.insertBefore(closestLi, _el);
-  
-
     }
 
     function isBefore(el1, el2) {
-      console.log('is before')
+      const indexEl1 = [...el2.parentNode.children].indexOf(el1)
+      const indexEl2 = [...el2.parentNode.children].indexOf(el2)
 
-      if (el2 === el1)
-        for (var cur = el1.previousSibling; cur && cur.nodeType !== 9; cur = cur.previousSibling)
-          if (cur === el2)
-            return true;
-      return false;
+      if (indexEl1 > indexEl2){
+        return true;
+      } else {
+        return false;
+      }
     }
 
 
