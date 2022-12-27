@@ -19,13 +19,15 @@
                 <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
               </q-btn>
             </div>
-            <ul style="padding-left: 0; margin-top: 0rem; overflow: scroll;">
-              <queue-card 
-                v-for="link in queueList"
-                :key="link.trackname"
-                v-bind="link"
-              />
-            </ul>
+            <div style="overflow:scroll; height:100%">
+              <ul style="padding-left: 0; margin-top: 0rem; margin-bottom: 600px;">
+                <queue-card 
+                  v-for="link in queueList"
+                  :key="link.trackname"
+                  v-bind="link"
+                />
+              </ul>
+            </div>
           </div>
         </div>
       </div>
