@@ -19,7 +19,11 @@
                 <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
               </q-btn>
             </div>
-            <queue-card />
+            <queue-card 
+              v-for="link in queueList"
+              :key="link.trackname"
+              v-bind="link"
+            />
           </div>
         </div>
       </div>
@@ -88,6 +92,21 @@ const linksData = [
   }
 ];
 
+
+const trackData = [
+  {
+    trackname: 'Awesometrack',
+    album: 'the dudes',
+    artist: 'psychonaut'
+  },
+  {
+    trackname: 'Track 2',
+    album: 'the dudes',
+    artist: 'psychonaut'
+  },
+]
+
+
 export default defineComponent({
   name: 'IndexPage',
   components: {
@@ -121,7 +140,8 @@ export default defineComponent({
   },
   data () {
     return {
-      essentialLinks: linksData
+      essentialLinks: linksData,
+      queueList: trackData
     }
   },
   

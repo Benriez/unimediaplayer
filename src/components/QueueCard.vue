@@ -8,9 +8,9 @@
 
 
     <div class="col-9 queue-card-center">
-      <p class="queue-card-text">Trackname</p>
-      <p class="queue-card-text">Album</p>
-      <p class="queue-card-text">Artist</p>
+      <p class="queue-card-text">{{ trackname }}</p>
+      <p class="queue-card-text">{{ album }}</p>
+      <p class="queue-card-text">{{ artist }}</p>
     </div>
 
 
@@ -25,7 +25,20 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'QueueCard',
-
+  props: {
+    trackname: {
+      type: String,
+      default: ''
+    },
+    album: {
+      type: String,
+      default: ''
+    },
+    artist: {
+      type: String,
+      default: ''
+    }
+  } 
 })
 </script>
 
@@ -34,7 +47,8 @@ export default defineComponent({
   .queue-card{
     width:100%; 
     height: 5rem; 
-    background-color: white
+    background-color: white;
+    border-bottom: 1px solid rgb(0 0 0 / 18%);
   }
 
   .queue-card-left{
