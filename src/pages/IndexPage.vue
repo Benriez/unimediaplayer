@@ -74,6 +74,7 @@ import LoginAuth from '../components/Login.vue'
 import TweenMax from 'gsap'
 
 
+
 export default defineComponent({
   name: 'IndexPage',
   components: {
@@ -87,7 +88,6 @@ export default defineComponent({
     const yt_embed_link = 'https://www.youtube.com/embed/';
     const youtubeRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
     const soundcloudRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?soundcloud\.com\/([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)/);
-
 
     const items = ref([
       {
@@ -167,22 +167,28 @@ export default defineComponent({
         persistent: true
       }).onOk(data => {
           console.log('>>>> OK, URL received', data)
-
           // validate inserted link is either from youtube or from soundcloud
           const isYouTubeUrl = youtubeRegex.test(data)
           const isSoundcloudUrl = soundcloudRegex.test(data)
           
           // create new item in items
-          if (isYouTubeUrl || isSoundcloudUrl){
+          if (isYouTubeUrl){
+            // get video ID from url 
+            const videoId = data.match(/v=([^&#]+)/)[1]
+            console.log(videoId)
+            // console.log('yt api key: ' + process.env.YT_API_KEY) 
+            
+            
             const newItem = {
               id: 5,
               title: 'The Jimi Hendrix Experience - All Along The Watchtower (Official Audio)',
               album: 'The Jimi Hendrix Experience',
               artist: 'Jimi Hendrix',
-              url: data
+              url: yt_embed_link + videoId
             }
 
             items.value.push(newItem)
+          
           } else {
             console.log('dude wrong URL')
           }
