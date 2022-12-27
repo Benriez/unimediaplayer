@@ -19,7 +19,7 @@
                 <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
               </q-btn>
             </div>
-            <ul style="padding-left: 0; margin-top: 0rem;">
+            <ul style="padding-left: 0; margin-top: 0rem; overflow: scroll;">
               <queue-card 
                 v-for="link in queueList"
                 :key="link.trackname"
@@ -46,7 +46,7 @@ import TweenMax from 'gsap'
 const trackData = [
   {
     trackname: 'The Crusaders - My Lady (Todd Terje Tangoterje Edit)',
-    album: '',
+    album: 'album',
     artist: 'dj tigerstripes',
     url: 'https://soundcloud.com/dj-tiger-stripes/the-crusaders-my-lady-todd-terje-tangoterje-edit'
   },
@@ -61,6 +61,12 @@ const trackData = [
     album: 'album',
     artist: 'Buzz Compass',
     url: 'https://soundcloud.com/buzzcompass/inside-my-love-rework'
+  },
+  {
+    trackname: 'Session #8 Lydia Birthday',
+    album: 'album',
+    artist: 'Psychonaut25',
+    url: 'https://livesets.com/psychonaut25/session/54483'
   },
   {
     trackname: 'Session #8 Lydia Birthday',

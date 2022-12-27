@@ -51,6 +51,10 @@ export default defineComponent({
     border-bottom: 1px solid rgb(0 0 0 / 18%);
   }
 
+  .queue-card:hover{
+    background-color: #E1E1E1;
+  }
+
   .queue-card-left{
     height: 100%; 
     padding: .5rem;
