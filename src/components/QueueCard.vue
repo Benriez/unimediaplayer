@@ -1,5 +1,5 @@
 <template>
-  <div class="row queue-card">
+  <li class="row queue-card">
     <div class="col-2 queue-card-left">
       <div class="column queue-card-preview">
         <q-icon class="self-center q-icon" name="play_arrow" style="color: white;"/>
@@ -17,7 +17,7 @@
     <div class="col-1 queue-card-right column">
       <q-icon class="self-center q-icon" name="drag_indicator" />
     </div>
-  </div>
+  </li>
 </template>
 
 <script>

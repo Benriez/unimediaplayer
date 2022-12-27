@@ -19,11 +19,13 @@
                 <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
               </q-btn>
             </div>
-            <queue-card 
-              v-for="link in queueList"
-              :key="link.trackname"
-              v-bind="link"
-            />
+            <ul style="padding-left: 0">
+              <queue-card 
+                v-for="link in queueList"
+                :key="link.trackname"
+                v-bind="link"
+              />
+            </ul>
           </div>
         </div>
       </div>
@@ -31,66 +33,14 @@
         Right Panel
       </div>
     </div>
-    <!-- <q-list>  
-        <essential-link
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
-    </q-list> -->
   </q-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import { useQuasar } from 'quasar'
-import EssentialLink from '../components/EssentialLink.vue'
 import QueueCard from '../components/QueueCard.vue'
-
-const linksData = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
+import TweenMax from 'gsap'
 
 
 const trackData = [
@@ -110,7 +60,6 @@ const trackData = [
 export default defineComponent({
   name: 'IndexPage',
   components: {
-    //EssentialLink
     QueueCard
   },
   setup () {
@@ -140,7 +89,6 @@ export default defineComponent({
   },
   data () {
     return {
-      essentialLinks: linksData,
       queueList: trackData
     }
   },
