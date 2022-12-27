@@ -84,6 +84,11 @@ export default defineComponent({
     const $q = useQuasar()
     const store = useUserStore()
     var _el;
+    const yt_embed_link = 'https://www.youtube.com/embed/';
+    const youtubeRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
+    const soundcloudRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?soundcloud\.com\/([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)/);
+
+
     const items = ref([
       {
         id: 0,
@@ -162,16 +167,25 @@ export default defineComponent({
         persistent: true
       }).onOk(data => {
           console.log('>>>> OK, URL received', data)
-          // create new item in items
-          const newItem = {
-            id: 5,
-            title: 'The Jimi Hendrix Experience - All Along The Watchtower (Official Audio)',
-            album: 'The Jimi Hendrix Experience',
-            artist: 'Jimi Hendrix',
-            url: data
-          }
 
-          items.value.push(newItem)
+          // validate inserted link is either from youtube or from soundcloud
+          const isYouTubeUrl = youtubeRegex.test(data)
+          const isSoundcloudUrl = soundcloudRegex.test(data)
+          
+          // create new item in items
+          if (isYouTubeUrl || isSoundcloudUrl){
+            const newItem = {
+              id: 5,
+              title: 'The Jimi Hendrix Experience - All Along The Watchtower (Official Audio)',
+              album: 'The Jimi Hendrix Experience',
+              artist: 'Jimi Hendrix',
+              url: data
+            }
+
+            items.value.push(newItem)
+          } else {
+            console.log('dude wrong URL')
+          }
 
       }).onCancel(() => {
           console.log('>>>> Cancel')
