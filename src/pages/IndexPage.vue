@@ -76,6 +76,9 @@ import TweenMax from 'gsap'
 
 const player_store = usePlayerStore()
 var videoSrc
+
+
+
 export default defineComponent({
   name: 'IndexPage',
   components: {
@@ -89,13 +92,7 @@ export default defineComponent({
     const youtubeRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
     const soundcloudRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?soundcloud\.com\/([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)/);
 
-    player_store.watch(
-      (state) => state.url,
-      (newUrl) => {
-        console.log(`The video url has changed to ${newUrl}`)
-        this.videoSrc = newUrl
-      }
-    )
+
     const items = ref([
       {
         id: 0,
@@ -233,6 +230,21 @@ export default defineComponent({
       store ,
     }
     
+  },
+  computed: {
+    url () {
+      return player_store.url
+    }
+  },
+  watch: {
+    url: {
+      handler (newUrl, oldUrl) {
+        console.log(`The video url has changed from "${oldUrl}" to "${newUrl}"`)
+        this.videoSrc = newUrl
+        console.log('video src: ', videoSrc)
+      },
+      deep: true
+    }
   },
   data () {
     return {
