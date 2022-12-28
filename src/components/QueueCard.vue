@@ -4,9 +4,13 @@
     @click="playTrack(title)"
     >
     <div class="col-2 queue-card-left">
-      <div class="column queue-card-preview">
+      <q-img 
+        :ratio="16/9"
+        :src="preview_img" 
+        class="column queue-card-preview"
+        >
         <q-icon class="self-center q-icon" name="play_arrow" style="color: white;"/>
-      </div>
+      </q-img>
     </div>
 
 
@@ -42,6 +46,10 @@ export default defineComponent({
       default: ''
     },
     artist: {
+      type: String,
+      default: ''
+    },
+    preview_img: {
       type: String,
       default: ''
     }
@@ -88,8 +96,8 @@ export default defineComponent({
   .queue-card-preview{
     display: flex; 
     justify-content: center; 
-    width:100%; 
-    height: 100%; 
+    width:95%; 
+    height: auto; 
     background-color: black; 
     border-radius: .25rem;
   }

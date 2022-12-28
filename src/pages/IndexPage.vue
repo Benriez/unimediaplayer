@@ -196,7 +196,8 @@ export default defineComponent({
                   title: title,
                   album: 'Albumname',
                   artist: cleanArtist,
-                  url: yt_embed_link + videoId
+                  url: yt_embed_link + videoId,
+                  preview_img: thumbnailUrl
                 }
 
                 items.value.push(newItem)
