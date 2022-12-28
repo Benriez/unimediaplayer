@@ -16,7 +16,7 @@
               <div class="queue-wrapper">
                 <p style="margin-bottom: 0">Queue ({{player_store.currentId + 1 }} / {{items.length}})</p>
                 <q-btn label="Add" @click="addLink" class="addBtn">
-                  <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
+                  <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem; color: #2e2e2e" />
                 </q-btn>
               </div>
 
@@ -118,14 +118,6 @@ export default defineComponent({
       },
       {
         id: 3,
-        title: 'Session #8 Lydia Birthday',
-        album: 'album',
-        artist: 'Psychonaut25',
-        url: 'https://livesets.com/psychonaut25/session/54483',
-        provider: 'Livesets'
-      },
-      {
-        id: 4,
         title: 'All along the Watchtower',
         album: 'album',
         artist: 'Jimmy Hendrix',

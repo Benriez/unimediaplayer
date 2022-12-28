@@ -8,6 +8,7 @@
         :ratio="16/9"
         :src="thumbnail" 
         class="column queue-card-preview"
+        style="background: linear-gradient(176deg, rgba(51,15,38,1) 0%, rgb(2 2 2) 100%);"
         >
         <q-icon class="self-center q-icon" name="play_arrow" style="color: white;"/>
       </q-img>
@@ -15,9 +16,9 @@
 
 
     <div class="col-9 queue-card-center">
-      <p class="queue-card-text">{{ title }}</p>
-      <p class="queue-card-text">{{ artist }}</p>
-      <p class="queue-card-text">{{ provider }}</p>
+      <p class="queue-card-text" style="font-size: .9rem">{{ title }}</p>
+      <p class="queue-card-text" style="font-size: .8rem">{{ artist }}</p>
+      <p class="queue-card-text" style="font-size: .8rem; margin-top: .3rem">{{ provider }}</p>
     </div>
 
 
