@@ -132,7 +132,7 @@ export default defineComponent({
         title: 'All along the Watchtower',
         album: 'album',
         artist: 'Jimmy Hendrix',
-        url: 'https://www.youtube.com/embed/TLV4_xaYynY/?autoplay=1?rel=0',
+        url: 'https://www.youtube.com/embed/TLV4_xaYynY?autoplay=1',
         provider: 'Youtube'
       }
     ])
@@ -213,7 +213,7 @@ export default defineComponent({
                   title: title,
                   album: 'Albumname',
                   artist: cleanArtist,
-                  url: player_store.getYTPlayer + videoId + '/?autoplay=1',
+                  url: player_store.getYTPlayer + videoId + '?autoplay=1',
                   thumbnail: thumbnailUrl,
                   provider: 'Youtube'
                 }
