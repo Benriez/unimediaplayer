@@ -37,7 +37,6 @@
                       draggable="true"
                       @drop="onDrop($event)"
                       @dragstart="startDrag($event)"
-                      style="padding: 5px"
                       />
                   </ul>
                 </div>

@@ -96,7 +96,7 @@ export default defineComponent({
   .queue-card-preview{
     display: flex; 
     justify-content: center; 
-    width:95%; 
+    width:98%; 
     height: auto; 
     background-color: black; 
     border-radius: .25rem;
