@@ -37,7 +37,6 @@ export default defineComponent({
     const player_store = usePlayerStore()
 
     return {
-      // you can return the whole store instance to use it in the template
       player_store
     }
   },
