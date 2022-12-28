@@ -75,10 +75,10 @@ export default defineComponent({
     setVideoUrl (newUrl) {
       if(this.provider == "Youtube"){
         this.player_store.setUrl({}, newUrl)
+        this.player_store.setId({}, this.id)
       } else if (this.provider == "Soundcloud"){
-        console.log('what up')
-        console.log(this.player_store.sc_player + newUrl)
         this.player_store.setUrl({}, this.player_store.sc_player + newUrl + this.player_store.sc_decorator)
+        this.player_store.setId({}, this.id)
       }
     }
   }

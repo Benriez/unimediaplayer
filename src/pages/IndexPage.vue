@@ -10,13 +10,13 @@
             <q-video
               ref="player"
               :ratio="16/9"
-              v-bind:src="videoSrc"
+              v-bind:src="player_store.currentlyPlaying"
             />
             <!-- https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true -->
             <!-- <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/bendust_official" title="Ben Dust" target="_blank" style="color: #cccccc; text-decoration: none;">Ben Dust</a> · <a href="https://soundcloud.com/bendust_official/bentech-no-one-takes-me-down-ben-dust-remix-preview" title="Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW" target="_blank" style="color: #cccccc; text-decoration: none;">Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW</a></div> -->
             <div class="queue" style="width: 100%; height: 100%;">
               <div class="queue-wrapper">
-                <p style="margin-bottom: 0">Queue ( / {{}})</p>
+                <p style="margin-bottom: 0">Queue ({{player_store.currentId }} / {{items.length -1}})</p>
                 <q-btn label="Add" @click="addLink" class="addBtn">
                   <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
                 </q-btn>
@@ -76,7 +76,6 @@ import TweenMax from 'gsap'
 
 
 const player_store = usePlayerStore()
-var videoSrc
 
 
 
@@ -112,7 +111,7 @@ export default defineComponent({
         provider: 'Soundcloud'
       },
       {
-        id: 3,
+        id: 2,
         title: 'Inside My Love',
         album: 'album',
         artist: 'Buzz Compass',
@@ -120,7 +119,7 @@ export default defineComponent({
         provider: 'Soundcloud'
       },
       {
-        id: 4,
+        id: 3,
         title: 'Session #8 Lydia Birthday',
         album: 'album',
         artist: 'Psychonaut25',
@@ -128,7 +127,7 @@ export default defineComponent({
         provider: 'Livesets'
       },
       {
-        id: 5,
+        id: 4,
         title: 'All along the Watchtower',
         album: 'album',
         artist: 'Jimmy Hendrix',
@@ -140,6 +139,7 @@ export default defineComponent({
     const getList = (list) => {
       return items.value.filter((item) => item.list == list)
     }
+
 
     const startDrag = (event) => {
       event.dataTransfer.dropEffect = "move"
@@ -204,12 +204,8 @@ export default defineComponent({
                 const cleanArtist = artist.replace('VEVO', '')
                 const thumbnailUrl = data.items[0].snippet.thumbnails.high.url
 
-                console.log(thumbnailUrl) 
-                console.log(title)  // 'Rick Astley - Never Gonna Give You Up (Video)'
-                console.log(cleanArtist) // 'RickAstleyVEVO'
-
                 const newItem = {
-                  id: 5,
+                  id: items.value.length + 1,
                   title: title,
                   album: 'Albumname',
                   artist: cleanArtist,
@@ -224,8 +220,7 @@ export default defineComponent({
 
           
           } else if (isSoundcloudUrl) {
-              console.log('Is Soundcloud URL')
-              
+              console.log('Is Soundcloud URL')  
               const match = soundcloudRegex.exec(data);
 
               if (match) {
@@ -235,7 +230,7 @@ export default defineComponent({
                 console.log(`Title: ${title}`);
 
                 const newItem = {
-                  id: 6,
+                  id: items.value.length + 1,
                   title: title,
                   album: 'Albumname',
                   artist: artist,
@@ -246,8 +241,6 @@ export default defineComponent({
 
                 items.value.push(newItem)
               }
-
-
 
           }else {
             console.log('dude wrong URL')
@@ -265,27 +258,13 @@ export default defineComponent({
       startDrag,
       onDrop,
       getList,
-      store ,
+      store,
+      items,
+      player_store
     }
     
   },
-  computed: {
-    url () {
-      return player_store.url
-    }
-  },
-  watch: {
-    url: {
-      handler (newUrl) {
-        this.videoSrc = newUrl
-      },
-      deep: true
-    }
-  },
   data () {
-    return {
-      videoSrc: player_store.currentlyPlaying
-    }
   },
   
 })
