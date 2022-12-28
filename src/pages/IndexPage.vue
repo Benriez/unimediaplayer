@@ -8,6 +8,7 @@
         <div class="col-8" style="background-color:#E1E1E1; padding: .3rem;">
           <div style="height: 100vh">
             <q-video
+              ref="player"
               :ratio="16/9"
               v-bind:src="videoSrc"
             />
@@ -200,7 +201,7 @@ export default defineComponent({
                   title: title,
                   album: 'Albumname',
                   artist: cleanArtist,
-                  url: player_store.getYTPlayer + videoId,
+                  url: player_store.getYTPlayer + videoId + '/?autoplay=1',
                   thumbnail: thumbnailUrl,
                 }
 
@@ -241,7 +242,6 @@ export default defineComponent({
       handler (newUrl, oldUrl) {
         console.log(`The video url has changed from "${oldUrl}" to "${newUrl}"`)
         this.videoSrc = newUrl
-        console.log('video src: ', videoSrc)
       },
       deep: true
     }
