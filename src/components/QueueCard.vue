@@ -1,12 +1,12 @@
 <template>
   <li 
     class="row queue-card" 
-    @click="playTrack(title)"
+    @click="setVideoUrl(url)"
     >
     <div class="col-2 queue-card-left">
       <q-img 
         :ratio="16/9"
-        :src="preview_img" 
+        :src="thumbnail" 
         class="column queue-card-preview"
         >
         <q-icon class="self-center q-icon" name="play_arrow" style="color: white;"/>
@@ -29,9 +29,18 @@
 
 <script>
 import { defineComponent } from 'vue'
+import { usePlayerStore } from '../stores/player-store'
 
 export default defineComponent({
   name: 'QueueCard',
+  setup () {
+    const player_store = usePlayerStore()
+
+    return {
+      // you can return the whole store instance to use it in the template
+      player_store
+    }
+  },
   props: {
     id: {
       type: Number,
@@ -49,18 +58,24 @@ export default defineComponent({
       type: String,
       default: ''
     },
-    preview_img: {
+    url: {
+      type: String,
+      default: ''
+    },
+    thumbnail: {
       type: String,
       default: ''
     }
   },
   methods: {
-    playTrack(title) {
-      console.log('play: ' + title)
+    setVideoUrl (newUrl) {
+      this.player_store.setUrl({}, newUrl)
     }
   }
 })
 </script>
+
+
 
 
 <style>

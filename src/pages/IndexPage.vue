@@ -9,7 +9,7 @@
           <div style="height: 100vh">
             <q-video
               :ratio="16/9"
-              src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+              v-bind:src="videoSrc"
             />
             <!-- https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true -->
             <!-- <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/344277146&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"></iframe><div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;"><a href="https://soundcloud.com/bendust_official" title="Ben Dust" target="_blank" style="color: #cccccc; text-decoration: none;">Ben Dust</a> · <a href="https://soundcloud.com/bendust_official/bentech-no-one-takes-me-down-ben-dust-remix-preview" title="Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW" target="_blank" style="color: #cccccc; text-decoration: none;">Bentech &amp; Sis - No One Takes Me Down (Ben Dust Remix) - OUT NOW</a></div> -->
@@ -65,15 +65,17 @@
 
 
 <script>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { useUserStore } from '../stores/user-store'
+import { usePlayerStore } from '../stores/player-store'
 import QueueCard from '../components/QueueCard.vue'
 import LoginAuth from '../components/Login.vue'
 import TweenMax from 'gsap'
 
 
-
+const player_store = usePlayerStore()
+var videoSrc
 export default defineComponent({
   name: 'IndexPage',
   components: {
@@ -84,10 +86,16 @@ export default defineComponent({
     const $q = useQuasar()
     const store = useUserStore()
     var _el;
-    const yt_embed_link = 'https://www.youtube.com/embed/';
     const youtubeRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
     const soundcloudRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?soundcloud\.com\/([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)/);
 
+    player_store.watch(
+      (state) => state.url,
+      (newUrl) => {
+        console.log(`The video url has changed to ${newUrl}`)
+        this.videoSrc = newUrl
+      }
+    )
     const items = ref([
       {
         id: 0,
@@ -195,8 +203,8 @@ export default defineComponent({
                   title: title,
                   album: 'Albumname',
                   artist: cleanArtist,
-                  url: yt_embed_link + videoId,
-                  preview_img: thumbnailUrl
+                  url: player_store.getYTPlayer + videoId,
+                  thumbnail: thumbnailUrl,
                 }
 
                 items.value.push(newItem)
@@ -228,7 +236,7 @@ export default defineComponent({
   },
   data () {
     return {
-      // queueList: items
+      videoSrc: player_store.currentlyPlaying
     }
   },
   
