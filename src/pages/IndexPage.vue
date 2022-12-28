@@ -100,28 +100,40 @@ export default defineComponent({
         title: 'The Crusaders - My Lady (Todd Terje Tangoterje Edit)',
         album: 'album',
         artist: 'dj tigerstripes',
-        url: 'https://soundcloud.com/dj-tiger-stripes/the-crusaders-my-lady-todd-terje-tangoterje-edit'
+        url: 'https://soundcloud.com/dj-tiger-stripes/the-crusaders-my-lady-todd-terje-tangoterje-edit',
+        provider: 'Soundcloud'
       },
       {
         id: 1,
         title: 'Diamond Veins feat. Sarah Rebecca',
         album: 'album',
         artist: 'French79',
-        url: 'https://soundcloud.com/french79music/diamond-veins'
+        url: 'https://soundcloud.com/french79music/diamond-veins',
+        provider: 'Soundcloud'
       },
       {
         id: 3,
         title: 'Inside My Love',
         album: 'album',
         artist: 'Buzz Compass',
-        url: 'https://soundcloud.com/buzzcompass/inside-my-love-rework'
+        url: 'https://soundcloud.com/buzzcompass/inside-my-love-rework',
+        provider: 'Soundcloud'
       },
       {
         id: 4,
         title: 'Session #8 Lydia Birthday',
         album: 'album',
         artist: 'Psychonaut25',
-        url: 'https://livesets.com/psychonaut25/session/54483'
+        url: 'https://livesets.com/psychonaut25/session/54483',
+        provider: 'Livesets'
+      },
+      {
+        id: 5,
+        title: 'All along the Watchtower',
+        album: 'album',
+        artist: 'Jimmy Hendrix',
+        url: 'https://www.youtube.com/embed/TLV4_xaYynY/?autoplay=1?rel=0',
+        provider: 'Youtube'
       }
     ])
 
@@ -203,16 +215,41 @@ export default defineComponent({
                   artist: cleanArtist,
                   url: player_store.getYTPlayer + videoId + '/?autoplay=1',
                   thumbnail: thumbnailUrl,
+                  provider: 'Youtube'
                 }
 
                 items.value.push(newItem)
               })
               .catch(error => console.error(error))
 
-
-
           
-          } else {
+          } else if (isSoundcloudUrl) {
+              console.log('Is Soundcloud URL')
+              
+              const match = soundcloudRegex.exec(data);
+
+              if (match) {
+                const artist = match[1];
+                const title = match[2];
+                console.log(`Artist: ${artist}`);
+                console.log(`Title: ${title}`);
+
+                const newItem = {
+                  id: 6,
+                  title: title,
+                  album: 'Albumname',
+                  artist: artist,
+                  url: data,
+                  thumbnail: '',
+                  provider: 'Soundcloud'
+                }
+
+                items.value.push(newItem)
+              }
+
+
+
+          }else {
             console.log('dude wrong URL')
           }
 

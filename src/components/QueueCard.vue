@@ -16,8 +16,8 @@
 
     <div class="col-9 queue-card-center">
       <p class="queue-card-text">{{ title }}</p>
-      <p class="queue-card-text">{{ album }}</p>
       <p class="queue-card-text">{{ artist }}</p>
+      <p class="queue-card-text">{{ provider }}</p>
     </div>
 
 
@@ -65,11 +65,21 @@ export default defineComponent({
     thumbnail: {
       type: String,
       default: ''
+    },
+    provider:{
+      type: String,
+      default: ''
     }
   },
   methods: {
     setVideoUrl (newUrl) {
-      this.player_store.setUrl({}, newUrl)
+      if(this.provider == "Youtube"){
+        this.player_store.setUrl({}, newUrl)
+      } else if (this.provider == "Soundcloud"){
+        console.log('what up')
+        console.log(this.player_store.sc_player + newUrl)
+        this.player_store.setUrl({}, this.player_store.sc_player + newUrl + this.player_store.sc_decorator)
+      }
     }
   }
 })
