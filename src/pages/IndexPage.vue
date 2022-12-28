@@ -90,7 +90,7 @@ export default defineComponent({
     const $q = useQuasar()
     const store = useUserStore()
     var _el;
-    const youtubeRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))((\w|-){11})(?:\S+)?$/);
+    const youtubeRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=)|music\.youtube\.com\/watch\?v=)((\w|-){11})(?:\S+)?$/);
     const soundcloudRegex = new RegExp(/^(?:https?:\/\/)?(?:www\.)?soundcloud\.com\/([a-zA-Z0-9-]+)\/([a-zA-Z0-9-]+)/);
 
 
@@ -239,8 +239,7 @@ export default defineComponent({
   },
   watch: {
     url: {
-      handler (newUrl, oldUrl) {
-        console.log(`The video url has changed from "${oldUrl}" to "${newUrl}"`)
+      handler (newUrl) {
         this.videoSrc = newUrl
       },
       deep: true
