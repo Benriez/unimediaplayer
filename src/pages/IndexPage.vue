@@ -14,7 +14,7 @@
             />
             <div class="queue" style="width: 100%; height: 100%;">
               <div class="queue-wrapper">
-                <p style="margin-bottom: 0">Queue ({{player_store.currentId }} / {{items.length -1}})</p>
+                <p style="margin-bottom: 0">Queue ({{player_store.currentId + 1 }} / {{items.length}})</p>
                 <q-btn label="Add" @click="addLink" class="addBtn">
                   <q-icon class="self-center q-icon" name="add_circle" style="margin-left:.5rem" />
                 </q-btn>
